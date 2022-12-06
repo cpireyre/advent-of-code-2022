@@ -9,6 +9,7 @@
 #  1   2   3   4   5   6   7   8   9 
 
 stacks = {}
+
 # stacks[1] = ['Z', 'N']
 # stacks[2] = ['M', 'C', 'D']
 # stacks[3] = ['P']
@@ -28,10 +29,21 @@ def parse(line):
     return int(words[1]), int(words[3]), int(words[5])
 
 # this mutates the global object, this is very bad, etc
+
+# Part I
+# def move(amount, orig, to):
+#     for _ in range(amount):
+#         if stacks[orig]:
+#             stacks[to].append(stacks[orig].pop())
+
+# Part II
 def move(amount, orig, to):
+    tmp = []
     for _ in range(amount):
         if stacks[orig]:
-            stacks[to].append(stacks[orig].pop())
+            tmp.append(stacks[orig].pop())
+    while tmp:
+        stacks[to].append(tmp.pop())
 
 with open('5-input.txt', 'r') as f:
     for line in f.readlines():
@@ -41,6 +53,7 @@ with open('5-input.txt', 'r') as f:
         move(*instructions)
         # print(stacks)
 
-
+# What if I passed the solve function as an argument hmm
 from pprint import pprint
-pprint(stacks) # LJSVLTWQM
+pprint(stacks) # Part I: LJSVLTWQM, Part II: BRQWDBBJM
+
